@@ -8,10 +8,11 @@
 
 #import "ViewController.h"
 
-#include "v0rtex.h"
+//#include "v0rtex.h"
 #include "kernel.h"
 #include "symbols.h"
 #include "root-rw.h"
+
 #include "libjb.h"
 #include "patchfinder64.h"
 #include "v0rtex.h"
@@ -20,12 +21,25 @@
 #include <sys/stat.h>
 #include <CommonCrypto/CommonDigest.h>
 #include <mach-o/loader.h>
-#include <sys/dir.h>
+#include "dir.h"
 #include <sys/utsname.h>
+
+#include "QiLin.h"
+
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *outputView;
 @property (weak, nonatomic) IBOutlet UIButton *sploitButton;
+
+- (void)viewDidLoad;
+- (IBAction)runSploitButton:(UIButton *)sender;
+
+int execprog(uint64_t kern_ucred, const char *prog, const char* args[]);
+int execprog_clean(uint64_t kern_ucred, const char *prog, const char* args[]);
+void read_file(const char *path);
+char* bundle_path();
+
+
 @end
 
 @implementation ViewController
@@ -45,9 +59,13 @@ kptr_t self_proc;
     self.outputView.text = nil;
     
     // print kernel version
+    NSString *ver = [[NSProcessInfo processInfo] operatingSystemVersionString];
     struct utsname u;
     uname(&u);
     [self writeText:[NSString stringWithFormat:@"%s \n", u.version]];
+    [self writeText:[NSString stringWithFormat:@"Device: %s \n", u.machine]];
+    [self writeText:[NSString stringWithFormat:@"%@ \n", ver]];
+
      
     // init offsets
     if (init_symbols()) {
@@ -65,17 +83,19 @@ kptr_t self_proc;
     kslide = 0;
     kern_ucred = 0;
     self_proc = 0;
-	
+	printf("sandbox uid = %d\n\n",getuid());
     
     /* Use v0rtex exploit */
     
-    kern_return_t ret = v0rtex(&tfp0, &kslide, &kern_ucred, &self_proc);
+   kern_return_t ret = v0rtex(&tfp0, &kslide, &kern_ucred, &self_proc);
+    
     if (ret != KERN_SUCCESS) {
         LOG("v0rtex exploit failed");
         [self writeText:@"ERROR: exploit failed \n"];
         return;
     }
-	
+    printf("v0rtex uid = %d\n\n",getuid());
+    
     self.sploitButton.enabled = NO;
     [self writeText:@"exploit succeeded ✅ \n"];
 	
@@ -91,18 +111,25 @@ kptr_t self_proc;
     init_amfi(tfp0);
     init_kernel(tfp0);
     
+  /*  // QiLin API
     
+    initQiLin(tfp0, kslide + 0xFFFFFFF007004000);
+    rootifyMe();
+    ShaiHuludMe(kern_ucred);
+    remountRootFS();
+    */
     /* Remount system partition as r/w */
     
     int remount = mount_root(tfp0, kslide);
     if (remount != 0) {
         LOG("failed to remount /");
-        [self writeText:@"ERROR: failed to remount system partition \n"];
+        [self writeText:@"ERROR: failed to remount system partition \n\n"];
         return;
     }
     [self writeText:@"remounted system partition as r/w"];
 
-    
+
+
     /* Install payload */
     
     [self writeText:@"installing payload"];
@@ -112,19 +139,20 @@ kptr_t self_proc;
         
         // cleanup leftovers
         [fileMgr removeItemAtPath:@"/v0rtex" error:nil];
+        [fileMgr removeItemAtPath:@"/etc/dropbear" error:nil];
         [fileMgr removeItemAtPath:@"/bin/sh" error:nil];
+        [fileMgr removeItemAtPath:@"/etc/hosts" error:nil];
+        [fileMgr removeItemAtPath:@"/.cydia_no_stash" error:nil];
+        [fileMgr removeItemAtPath:@"/.installed_v0rtex" error:nil];
         LOG("removed old payload files");
         
-        // create dirs for v0rtex
-        mkdir("/v0rtex", 0777);
-        mkdir("/v0rtex/bins", 0777);
-        mkdir("/v0rtex/logs", 0777);
         
-        // create dirs and files for dropbear
-        //    mkdir("/etc", 0777);
-        mkdir("/etc/dropbear", 0777);
-        //    mkdir("/var", 0777);
-        //    mkdir("/var/log", 0777);
+        // create dirs for v0rtex
+        mkdir("/v0rtex", 0775);
+        mkdir("/v0rtex/bins", 0775);
+        mkdir("/v0rtex/bin", 0775);
+        mkdir("/etc/dropbear", 0775);
+        
         FILE *lastLog = fopen("/var/log/lastlog", "ab+");
         fclose(lastLog);
         
@@ -132,25 +160,31 @@ kptr_t self_proc;
         [fileMgr copyItemAtPath:[bundlePath stringByAppendingString:@"/bootstrap.tar"]
                          toPath:@"/v0rtex/bootstrap.tar" error: nil];
 
-        [fileMgr copyItemAtPath:[bundlePath stringByAppendingString:@"/tar"]
+        [fileMgr copyItemAtPath:[bundlePath stringByAppendingString:@"/tar-sig"]
                          toPath:@"/v0rtex/tar" error:nil];
         
-        [fileMgr copyItemAtPath:[bundlePath stringByAppendingString:@"/bash"]
+        [fileMgr copyItemAtPath:[bundlePath stringByAppendingString:@"/bash-arm64-sig"]
                          toPath:@"/bin/sh" error:nil];
         
-        [fileMgr copyItemAtPath:[bundlePath stringByAppendingString:@"/dropbear"]
-                         toPath:@"/v0rtex/dropbear" error:nil];
+        [fileMgr copyItemAtPath:[bundlePath stringByAppendingString:@"/dropbear-sig"]
+                         toPath:@"/v0rtex/dropbear-sig" error:nil];
+        
+        [fileMgr copyItemAtPath:[bundlePath stringByAppendingString:@"/hosts"]
+                         toPath:@"/etc/hosts" error: nil];
+        
+        LOG("copying hosts to /etc");
+
         
         // grant permissions
-        chmod("/v0rtex/tar", 0777);
-        chmod("/bin/sh", 0777);
-        chmod("/v0rtex/dropbear", 0777);
+        chmod("/bin/sh", 0775);
+        chmod("/v0rtex/tar", 0775);
+        chmod("/v0rtex/dropbear-sig", 0775);
         LOG("granted some permission");
         
         // fuck up amfi
-        inject_trust("/v0rtex/tar");
         inject_trust("/bin/sh");
-        inject_trust("/v0rtex/dropbear");
+        inject_trust("/v0rtex/tar");
+        inject_trust("/v0rtex/dropbear-sig");
         LOG("fucked up amfi");
         
         // extract payload
@@ -159,23 +193,25 @@ kptr_t self_proc;
         
         // trust files in payload
         trust_files("/v0rtex/bins");
+       // trust_files("/v0rtex/bin"); // not work
+        
         [self writeText:@"trusted payload binaries"];
         
         // create bash profiles with our bin path
         if (![fileMgr fileExistsAtPath:@"/var/mobile/.profile"]) {
-            [fileMgr createFileAtPath:@"/var/mobile/.profile" contents:[[NSString stringWithFormat:@"export PATH=/v0rtex/bins:$PATH"] dataUsingEncoding:NSASCIIStringEncoding] attributes:nil];
+            [fileMgr createFileAtPath:@"/var/mobile/.profile" contents:[[NSString stringWithFormat:@"export PATH=/v0rtex/bins:/v0rtex/bin:$PATH"] dataUsingEncoding:NSASCIIStringEncoding] attributes:nil];
         }
         if (![fileMgr fileExistsAtPath:@"/var/root/.profile"]) {
-            [fileMgr createFileAtPath:@"/var/root/.profile" contents:[[NSString stringWithFormat:@"export PATH=/v0rtex/bins:$PATH"] dataUsingEncoding:NSASCIIStringEncoding] attributes:nil];
+            [fileMgr createFileAtPath:@"/var/root/.profile" contents:[[NSString stringWithFormat:@"export PATH=/v0rtex/bins:/v0rtex/bin:$PATH"] dataUsingEncoding:NSASCIIStringEncoding] attributes:nil];
         }
+        
         
         // leave a footprint ;)
         FILE *f = fopen("/.installed_v0rtex", "w");
         fclose(f);
         
-        // no stashing please !!!
-        FILE *f2 = fopen("/.cydia_no_stash", "w");
-        fclose(f2);
+        LOG("/.installed_v0rtex");
+
     }
     
     
@@ -183,12 +219,12 @@ kptr_t self_proc;
     
     [self writeText:@"launching dropbear"];
     
-    execprog(kern_ucred, "/v0rtex/dropbear", (const char**)&(const char*[]){
-        "/v0rtex/dropbear", "-R", "-E", "-m", "-S", "/", "-p", "2222", NULL
+    execprog(kern_ucred, "/v0rtex/dropbear-sig", (const char**)&(const char*[]){
+        "/v0rtex/dropbear-sig", "-R", "-E", "-p", "127.0.0.1:2222", NULL
     });
     
     [self writeText:@"* dropbear should now be running on port 2222"];
-    [self writeText:@"* to connect:ssh -p2222 root@{YOUR_DEVICE_IP}"];
+    [self writeText:@"* to connect: ssh root@localhost -p 2222"];
     [self writeText:@"\n"];
     
     
@@ -196,6 +232,13 @@ kptr_t self_proc;
     
     [self writeText:@"All done, peace!"];
 }
+    
+    
+    
+    
+    
+
+
 
 - (void)writeText:(NSString *)text {
     self.outputView.text = [NSString stringWithFormat:@"%@%@ \n", self.outputView.text, text];
@@ -207,7 +250,7 @@ int execprog(uint64_t kern_ucred, const char *prog, const char* args[]) {
         args = (const char **)&(const char*[]){ prog, NULL };
     }
     
-    const char *logfile = [NSString stringWithFormat:@"/v0rtex/logs/%@-%lu",
+    const char *logfile = [NSString stringWithFormat:@"/tmp/%@-%lu",
                            [[NSMutableString stringWithUTF8String:prog] stringByReplacingOccurrencesOfString:@"/" withString:@"_"],
                            time(NULL)].UTF8String;
     printf("Spawning [ ");

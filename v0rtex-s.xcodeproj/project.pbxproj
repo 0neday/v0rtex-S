@@ -11,13 +11,14 @@
 		B58B32461FE4ED6300EB7B47 /* symbols.m in Sources */ = {isa = PBXBuildFile; fileRef = B58B32451FE4ED6300EB7B47 /* symbols.m */; };
 		B58B32491FE4F3DF00EB7B47 /* root-rw.m in Sources */ = {isa = PBXBuildFile; fileRef = B58B32481FE4F3DF00EB7B47 /* root-rw.m */; };
 		B5C5C5D31FE9C51A0022D2EC /* amfi.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C5C5D21FE9C51A0022D2EC /* amfi.m */; };
-		B5C5C5DE1FE9EF670022D2EC /* launchctl in Resources */ = {isa = PBXBuildFile; fileRef = B5C5C5DD1FE9EF660022D2EC /* launchctl */; };
 		B5E66A511FE6D8A800C7530E /* patchfinder64.c in Sources */ = {isa = PBXBuildFile; fileRef = B5E66A501FE6D8A800C7530E /* patchfinder64.c */; };
-		B5E66A5A1FE824FD00C7530E /* tar in Resources */ = {isa = PBXBuildFile; fileRef = B5E66A591FE824FD00C7530E /* tar */; };
 		B5E66A5C1FE86DD900C7530E /* libjb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E66A5B1FE86DD900C7530E /* libjb.a */; };
-		EE2E3E891FEDF73400BBE88D /* bootstrap.tar in Resources */ = {isa = PBXBuildFile; fileRef = EE2E3E881FEDF73400BBE88D /* bootstrap.tar */; };
-		EE2E3E8C1FEDF99600BBE88D /* dropbear in Resources */ = {isa = PBXBuildFile; fileRef = EE2E3E8A1FEDF99600BBE88D /* dropbear */; };
-		EE2E3E8D1FEDF99600BBE88D /* bash in Resources */ = {isa = PBXBuildFile; fileRef = EE2E3E8B1FEDF99600BBE88D /* bash */; };
+		D02177EB20CB77E3006A2645 /* dropbear-sig in Resources */ = {isa = PBXBuildFile; fileRef = D02177EA20CB77E3006A2645 /* dropbear-sig */; };
+		D02177ED20CB77EF006A2645 /* hosts in Resources */ = {isa = PBXBuildFile; fileRef = D02177EC20CB77EF006A2645 /* hosts */; };
+		D02177EF20CB77FB006A2645 /* bash-arm64-sig in Resources */ = {isa = PBXBuildFile; fileRef = D02177EE20CB77FB006A2645 /* bash-arm64-sig */; };
+		D02177F120CB780D006A2645 /* tar-sig in Resources */ = {isa = PBXBuildFile; fileRef = D02177F020CB780D006A2645 /* tar-sig */; };
+		D02177F320CB784C006A2645 /* bootstrap.tar in Resources */ = {isa = PBXBuildFile; fileRef = D02177F220CB784C006A2645 /* bootstrap.tar */; };
+		D02177F820CB7903006A2645 /* qilin.o in Frameworks */ = {isa = PBXBuildFile; fileRef = D02177F620CB7903006A2645 /* qilin.o */; };
 		EE5169281FDC2A7000805460 /* v0rtex.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5169271FDC2A7000805460 /* v0rtex.m */; };
 		EE5252AE1FDA4F2F00993801 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5252AD1FDA4F2F00993801 /* AppDelegate.m */; };
 		EE5252B11FDA4F2F00993801 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5252B01FDA4F2F00993801 /* ViewController.m */; };
@@ -38,14 +39,17 @@
 		B58B32561FE5237000EB7B47 /* libjb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libjb.h; sourceTree = "<group>"; };
 		B5C5C5D21FE9C51A0022D2EC /* amfi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = amfi.m; sourceTree = "<group>"; };
 		B5C5C5D41FE9C8CC0022D2EC /* amfi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = amfi.h; sourceTree = "<group>"; };
-		B5C5C5DD1FE9EF660022D2EC /* launchctl */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = launchctl; sourceTree = "<group>"; };
 		B5E66A4F1FE6D8A700C7530E /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patchfinder64.h; sourceTree = "<group>"; };
 		B5E66A501FE6D8A800C7530E /* patchfinder64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = patchfinder64.c; sourceTree = "<group>"; };
-		B5E66A591FE824FD00C7530E /* tar */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = tar; sourceTree = "<group>"; };
 		B5E66A5B1FE86DD900C7530E /* libjb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjb.a; sourceTree = "<group>"; };
-		EE2E3E881FEDF73400BBE88D /* bootstrap.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = bootstrap.tar; sourceTree = "<group>"; };
-		EE2E3E8A1FEDF99600BBE88D /* dropbear */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = dropbear; sourceTree = "<group>"; };
-		EE2E3E8B1FEDF99600BBE88D /* bash */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = bash; sourceTree = "<group>"; };
+		D02177EA20CB77E3006A2645 /* dropbear-sig */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "dropbear-sig"; sourceTree = "<group>"; };
+		D02177EC20CB77EF006A2645 /* hosts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hosts; sourceTree = "<group>"; };
+		D02177EE20CB77FB006A2645 /* bash-arm64-sig */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "bash-arm64-sig"; sourceTree = "<group>"; };
+		D02177F020CB780D006A2645 /* tar-sig */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "tar-sig"; sourceTree = "<group>"; };
+		D02177F220CB784C006A2645 /* bootstrap.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = bootstrap.tar; sourceTree = "<group>"; };
+		D02177F620CB7903006A2645 /* qilin.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = qilin.o; sourceTree = "<group>"; };
+		D02177F720CB7903006A2645 /* QiLin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiLin.h; sourceTree = "<group>"; };
+		D02177F920CB791E006A2645 /* dir.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dir.h; sourceTree = "<group>"; };
 		EE5169271FDC2A7000805460 /* v0rtex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v0rtex.m; sourceTree = "<group>"; };
 		EE5169291FDC2C9D00805460 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		EE5252A91FDA4F2F00993801 /* v0rtex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v0rtex.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02177F820CB7903006A2645 /* qilin.o in Frameworks */,
 				B5E66A5C1FE86DD900C7530E /* libjb.a in Frameworks */,
 				EE665E261FDC013D00FF457E /* IOKit.framework in Frameworks */,
 			);
@@ -75,14 +80,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D02177F420CB787D006A2645 /* v0rtex */ = {
+			isa = PBXGroup;
+			children = (
+				EE5169291FDC2C9D00805460 /* common.h */,
+				B58B32471FE4EDCF00EB7B47 /* symbols.h */,
+				B58B32451FE4ED6300EB7B47 /* symbols.m */,
+				EE81AD151FDEF1AB0094418B /* v0rtex.h */,
+				EE5169271FDC2A7000805460 /* v0rtex.m */,
+			);
+			name = v0rtex;
+			sourceTree = "<group>";
+		};
+		D02177F520CB78E3006A2645 /* QiLin */ = {
+			isa = PBXGroup;
+			children = (
+				D02177F720CB7903006A2645 /* QiLin.h */,
+				D02177F620CB7903006A2645 /* qilin.o */,
+			);
+			name = QiLin;
+			sourceTree = "<group>";
+		};
 		EE2E3E8E1FEE023100BBE88D /* bootstrap */ = {
 			isa = PBXGroup;
 			children = (
-				B5E66A591FE824FD00C7530E /* tar */,
-				EE2E3E8B1FEDF99600BBE88D /* bash */,
-				EE2E3E8A1FEDF99600BBE88D /* dropbear */,
-				EE2E3E881FEDF73400BBE88D /* bootstrap.tar */,
-				B5C5C5DD1FE9EF660022D2EC /* launchctl */,
+				D02177F220CB784C006A2645 /* bootstrap.tar */,
+				D02177EC20CB77EF006A2645 /* hosts */,
+				D02177F020CB780D006A2645 /* tar-sig */,
+				D02177EE20CB77FB006A2645 /* bash-arm64-sig */,
+				D02177EA20CB77E3006A2645 /* dropbear-sig */,
 			);
 			name = bootstrap;
 			sourceTree = "<group>";
@@ -107,16 +133,15 @@
 		EE5252AB1FDA4F2F00993801 /* v0rtex-S */ = {
 			isa = PBXGroup;
 			children = (
+				D02177F520CB78E3006A2645 /* QiLin */,
 				EE2E3E8E1FEE023100BBE88D /* bootstrap */,
 				EE801A6F1FEDAE12002908D2 /* fun */,
-				EE5252BB1FDA4F2F00993801 /* main.m */,
+				D02177F420CB787D006A2645 /* v0rtex */,
 				EE5252AC1FDA4F2F00993801 /* AppDelegate.h */,
 				EE5252AD1FDA4F2F00993801 /* AppDelegate.m */,
 				EE5252AF1FDA4F2F00993801 /* ViewController.h */,
 				EE5252B01FDA4F2F00993801 /* ViewController.m */,
-				EE5169291FDC2C9D00805460 /* common.h */,
-				EE81AD151FDEF1AB0094418B /* v0rtex.h */,
-				EE5169271FDC2A7000805460 /* v0rtex.m */,
+				EE5252BB1FDA4F2F00993801 /* main.m */,
 				EEAC27D31FDDB0A3003C1801 /* Supporting Files */,
 			);
 			path = "v0rtex-S";
@@ -133,10 +158,9 @@
 		EE801A6F1FEDAE12002908D2 /* fun */ = {
 			isa = PBXGroup;
 			children = (
+				D02177F920CB791E006A2645 /* dir.h */,
 				B5E66A501FE6D8A800C7530E /* patchfinder64.c */,
 				B5E66A4F1FE6D8A700C7530E /* patchfinder64.h */,
-				B58B32451FE4ED6300EB7B47 /* symbols.m */,
-				B58B32471FE4EDCF00EB7B47 /* symbols.h */,
 				B58B323F1FE4EBA300EB7B47 /* kernel.h */,
 				B58B323D1FE4EBA300EB7B47 /* kernel.m */,
 				B5C5C5D21FE9C51A0022D2EC /* amfi.m */,
@@ -195,7 +219,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EE5252A41FDA4F2F00993801 /* Build configuration list for PBXProject "v0rtex-S" */;
+			buildConfigurationList = EE5252A41FDA4F2F00993801 /* Build configuration list for PBXProject "v0rtex-s" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -218,14 +242,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02177F320CB784C006A2645 /* bootstrap.tar in Resources */,
 				EE5252B91FDA4F2F00993801 /* LaunchScreen.storyboard in Resources */,
-				B5C5C5DE1FE9EF670022D2EC /* launchctl in Resources */,
-				EE2E3E8D1FEDF99600BBE88D /* bash in Resources */,
-				EE2E3E8C1FEDF99600BBE88D /* dropbear in Resources */,
-				B5E66A5A1FE824FD00C7530E /* tar in Resources */,
+				D02177F120CB780D006A2645 /* tar-sig in Resources */,
 				EE5252B61FDA4F2F00993801 /* Assets.xcassets in Resources */,
-				EE2E3E891FEDF73400BBE88D /* bootstrap.tar in Resources */,
+				D02177ED20CB77EF006A2645 /* hosts in Resources */,
 				EE5252B41FDA4F2F00993801 /* Main.storyboard in Resources */,
+				D02177EB20CB77E3006A2645 /* dropbear-sig in Resources */,
+				D02177EF20CB77FB006A2645 /* bash-arm64-sig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +406,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23C653WLNB;
+				DEVELOPMENT_TEAM = URN3LP3FW9;
 				ENABLE_BITCODE = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/v0rtex-S/Info.plist";
@@ -392,7 +416,7 @@
 					"$(PROJECT_DIR)/v0rtex-S",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sticktron.v0rtex-s";
+				PRODUCT_BUNDLE_IDENTIFIER = "cn.njcit.v0rtex-s";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -406,7 +430,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23C653WLNB;
+				DEVELOPMENT_TEAM = URN3LP3FW9;
 				ENABLE_BITCODE = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/v0rtex-S/Info.plist";
@@ -416,7 +440,7 @@
 					"$(PROJECT_DIR)/v0rtex-S",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sticktron.v0rtex-s";
+				PRODUCT_BUNDLE_IDENTIFIER = "cn.njcit.v0rtex-s";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -427,7 +451,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EE5252A41FDA4F2F00993801 /* Build configuration list for PBXProject "v0rtex-S" */ = {
+		EE5252A41FDA4F2F00993801 /* Build configuration list for PBXProject "v0rtex-s" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE5252BD1FDA4F2F00993801 /* Debug */,

