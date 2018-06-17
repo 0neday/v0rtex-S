@@ -73,11 +73,29 @@ when you compile source code, you just change CC for configure, like this:
 for bootstrap.tar, you could check [here](https://github.com/0neday/MobileTerminal/tree/master/MobileTerminal/file_cmds-251).
 There are some Makefile for build binary files for iOS device, which code come from [Apple Open Sources Program](https://opensource.apple.com/source/),you can download it from [here](https://opensource.apple.com/tarballs/).
 
-**Notes**: You need ldid2 to codesign for any binary files what you compiled
+**Notes**: You need [ldid2](https://github.com/GaryniL/ldid) to codesign for any binary files what you compiled 
+
 ```
-ldid2 -S dropbear tar bash
+ldid2 -Sent.xml dropbear tar bash
 ```
 
+ent.xml 
+```
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>platform-application</key>
+    <true/>
+    <key>com.apple.private.security.container-required</key>
+    <false/>
+</dict>
+</plist>
+```
+
+### After that check your sign using [jtool](http://www.newosxbook.com/tools/jtool.html)
+```
+jtool --sig dropbear -v 
+```
 
 
 ## Credits
